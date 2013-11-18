@@ -1,0 +1,33 @@
+#include <iostream>
+#include <unordered_map>
+#include <list>
+using namespace std;
+
+
+struct Node{
+    int key, value;
+    Node *pre, *next;
+    
+	Node(int k, int v): key(k), value(v)
+		, pre(NULL), next(NULL){}
+};
+
+template<class T>
+class NodeList{
+	T head, tail;
+	int capacity;
+public:
+	NodeList(void): head(NULL), tail(NULL), capacity(0) {}
+	
+	void remove(T p){
+		if(p->pre != NULL)
+			p->pre->next = p->next;
+		else
+			head = p->next;
+		if(p->next != NULL)
+			p->next->pre = p->pre;
+		else
+			tail = p->pre;
+
+		capacity --;
+	}
